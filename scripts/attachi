@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+""" Attachment helper tool for openBIS registration """
+
+from __future__ import print_function
+
+import click
+
+import attachi.attachi
+
+@click.command()
+@click.argument(
+    'project_id',
+    required = True,
+    metavar = 'PROJECTID'
+)
+@click.argument(
+    'file_path',
+    required = True,
+    metavar = 'FILE'
+)
+@click.argument(
+    'comment',
+    required = True,
+    metavar = 'COMMENT'
+)
+@click.option(
+    '-u', '--user',
+    help = 'Your ZDV user id?',
+    metavar = 'ID'
+)
+def run(project_id, file_path, comment, user):
+    """ Attachi - A helper tool that prepares attachments for openBIS registration"""
+    print(comment)
+    print(user)
+    attachi = attachi.attachi.Attachi(project_id, file_path, comment, user)
+    attachi.run()
+
+if __name__ == '__main__':
+    run()
