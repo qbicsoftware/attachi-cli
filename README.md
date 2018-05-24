@@ -8,7 +8,7 @@ A small helper script, that creates the folder structure needed to register file
 
 or from a specific branch:
 
-`pip install git+https://github.com/qbicsoftware/attachi-cli@<branch>``
+``pip install git+https://github.com/qbicsoftware/attachi-cli@<branch>``
 
 ## Run
 
