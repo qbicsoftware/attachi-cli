@@ -12,6 +12,21 @@ parser.add_argument("-u", "--user", type=str, help="username shown in openbis as
 parser.add_argument("-o", "--out", type=str, help="output folder path")
 args = parser.parse_args()
 
+# leaving out non-alphanumerical signs
+def mapToDigit(num):
+	num += 48 # 0 to 9
+	if num > 57:
+		num += 7 # A to X
+	return chr(num)
+
+def checksum(name):
+	i = 1;
+	sum = 0;
+	for x in name:
+		sum += (ord(x))*i
+		i += 1
+	return mapToDigit(sum%34) # 10 numbers + 24 letters
+
 def now():
 	return str(datetime.datetime.now())
 
@@ -27,6 +42,7 @@ def init_log():
 	global logfile
 	logfile = open(log_path, "a")
 
+USER = None
 if args.user:
 	USER = args.user
 target = os.path.dirname(os.path.realpath(__file__))
@@ -37,7 +53,9 @@ PATH = args.file
 COMMENT = args.comment
 
 init_log()
-log("Want to create Attachment "+PATH+" ("+COMMENT+") folder structure for "+PROJECT+" as user "+USER)
+log("Want to create Attachment "+PATH+" ("+COMMENT+") folder structure for "+PROJECT)
+if USER:
+	log("as user:" +USER)
 
 if os.path.isdir(PATH):
 	log(PATH+" is a directory. Quitting.")
@@ -45,7 +63,9 @@ if os.path.isdir(PATH):
 f = os.path.basename(PATH)
 
 timestamp = now().replace(" ","").replace(":","").replace(".","").replace("-","")
-folder = os.path.join(target, PROJECT+"_"+timestamp)
+base = PROJECT+"000A"
+barcode = base+checksum(base)
+folder = os.path.join(target, barcode+"_"+timestamp)
 os.system("mkdir "+folder)
 log("Folder "+folder+" created")
 
