@@ -1,80 +1,81 @@
 import os
 import sys
+import logging
 import getpass
 import datetime
 import subprocess
 
+logger = logging.getLogger("attachi")
+logger.setLevel(logging.DEBUG)
+
+formatter = formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+try:
+    ch = logging.FileHandler(filename="attachi.log", mode="a+")
+    ch.setLevel(logging.DEBUG)
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
+except Exception as e:
+    print('Could not create logging file, will log on command line instead!')
+
 class Attachi(object):
 
-    def __init__(self, qcode, fpath, comment, username = "", output = ""):
+    def __init__(self, qcode, fpath, comment, username = "", outdir = ""):
         self.code = qcode
         self.path = fpath
         self.comment = comment
         self.username = username
+        self.outdir = outdir
 
     def run(self):
-        now = datetime.datetime.now()
-        log_path = os.path.dirname(os.path.realpath(__file__))+"/helper_logs/attachment_helper_"+str(now.year)+"_"+str(now.month)+"_"+str(now.day)+".log"
-        global logfile
-        
-        logfile = open(log_path, "a+")
+        now = str(datetime.datetime.now())
 
         USER = getpass.getuser()
         PROJECT = self.code
         PATH = self.path
         COMMENT = self.comment
-        target = os.path.dirname(os.path.realpath(__file__))
+        target = os.path.dirname(os.path.realpath(__file__)) if not self.outdir else self.outdir
 
-        init_log()
-        log("Want to upload Attachment "+PATH+" ("+COMMENT+") to openBIS project "+PROJECT+" as user "+USER)
+        logger.debug("Want to upload Attachment "+PATH+" ("+COMMENT+") to openBIS project "+PROJECT+" as user "+USER)
 
         if os.path.isdir(PATH):
-            log(PATH+" is a directory. Quitting.")
+            logger.debug(PATH+" is a directory. Quitting.")
             sys.exit(PATH+" is a directory. You can only upload files as attachments.")
         f = os.path.basename(PATH)
-
-        timestamp = now().replace(" ","").replace(":","").replace(".","").replace("-","")
+        
+        timestamp = now.replace(" ","").replace(":","").replace(".","").replace("-","")
         base = PROJECT+"000A"
         barcode = base+checksum(base)
         folder = os.path.join(target, barcode+"_"+timestamp)
         os.system("mkdir "+folder)
-        log("Folder "+folder+" created")
+        logger.debug("Folder "+folder+" created")
 
         metadata = open(os.path.join(folder,"metadata.txt"),"w")
+        if USER:
+	        metadata.write("user="+USER+"\n")
         metadata.write("user="+USER+"\n")
         metadata.write("info="+COMMENT+"\n")
         metadata.write("barcode="+PROJECT+"000\n")
         metadata.write("type=Results\n")
         metadata.close()
 
-        log("Wrote metadata file to folder "+folder)
+        logger.debug("Wrote metadata file to folder "+folder)
         cmd = "cp "+PATH+" "+os.path.join(folder,f)
-        print("copying "+PATH+" to the dropbox...")
+        logger.info("copying "+PATH+" to the dropbox...")
         subprocess.call(cmd.split(" "))
-        log("Copying of data file done. checking existence...")
+        logger.debug("Copying of data file done. checking existence...")
         exists = os.path.isfile(os.path.join(folder,f))
-        log(str(exists))
+        logger.debug(str(exists))
         if not exists:
-            print("File could not be copied!")
-        else:
-            print("done.")
-            cmd = "touch "+os.path.join(OPENBIS_DROPBOX, ".MARKER_is_finished_"+timestamp)
-            subprocess.call(cmd.split(" "))
-            print("marker file has been created. your attachment should now be registered to openbis.")
-            log("Marker file created\n")
-        logfile.close()
+            logger.info("File could not be copied!")
 
 def now():
     return str(datetime.datetime.now())
-
-def log(text):
-    logfile.write(now()+" "+text+"\n")
-
-def init_log():
-	now = datetime.datetime.now()
-	log_path = os.path.dirname(os.path.realpath(__file__))+"/helper_logs/attachment_helper_"+str(now.year)+"_"+str(now.month)+"_"+str(now.day)+".log"
-	global logfile
-	logfile = open(log_path, "a+")
 
 def mapToDigit(num):
 	num += 48 # 0 to 9
@@ -83,8 +84,8 @@ def mapToDigit(num):
 	return chr(num)
 
 def checksum(name):
-	i = 1;
-	sum = 0;
+	i = 1
+	sum = 0
 	for x in name:
 		sum += (ord(x))*i
 		i += 1
