@@ -79,7 +79,7 @@ metadata.close()
 
 log("Wrote metadata file to folder "+folder)
 cmd = "cp "+PATH+" "+os.path.join(folder,f)
-print "copying "+PATH+" to the target folder"
+print ("copying "+PATH+" to the target folder")
 subprocess.call(cmd.split(" "))
 log("Copying of data file done. checking existence...")
 exists = os.path.isfile(os.path.join(folder,f))
