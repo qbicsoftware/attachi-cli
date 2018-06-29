@@ -6,7 +6,7 @@ import subprocess
 
 class Attachi(object):
 
-    def __init__(self, qcode, fpath, comment, username = ""):
+    def __init__(self, qcode, fpath, comment, username = "", output = ""):
         self.code = qcode
         self.path = fpath
         self.comment = comment
@@ -20,10 +20,10 @@ class Attachi(object):
         logfile = open(log_path, "a+")
 
         USER = getpass.getuser()
-        OPENBIS_DROPBOX = os.path.dirname(os.path.realpath(__file__))+"/QBiC-register-exp-proj-attachment"
         PROJECT = self.code
         PATH = self.path
         COMMENT = self.comment
+        target = os.path.dirname(os.path.realpath(__file__))
 
         init_log()
         log("Want to upload Attachment "+PATH+" ("+COMMENT+") to openBIS project "+PROJECT+" as user "+USER)
@@ -34,7 +34,9 @@ class Attachi(object):
         f = os.path.basename(PATH)
 
         timestamp = now().replace(" ","").replace(":","").replace(".","").replace("-","")
-        folder = os.path.join(OPENBIS_DROPBOX, timestamp)
+        base = PROJECT+"000A"
+        barcode = base+checksum(base)
+        folder = os.path.join(target, barcode+"_"+timestamp)
         os.system("mkdir "+folder)
         log("Folder "+folder+" created")
 
@@ -73,3 +75,17 @@ def init_log():
 	log_path = os.path.dirname(os.path.realpath(__file__))+"/helper_logs/attachment_helper_"+str(now.year)+"_"+str(now.month)+"_"+str(now.day)+".log"
 	global logfile
 	logfile = open(log_path, "a+")
+
+def mapToDigit(num):
+	num += 48 # 0 to 9
+	if num > 57:
+		num += 7 # A to X
+	return chr(num)
+
+def checksum(name):
+	i = 1;
+	sum = 0;
+	for x in name:
+		sum += (ord(x))*i
+		i += 1
+	return mapToDigit(sum%34) # 10 numbers + 24 letters
