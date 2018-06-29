@@ -5,7 +5,7 @@ from __future__ import print_function
 
 import click
 
-import attachi.attachi
+from attachi.attachi import Attachi
 
 @click.command()
 @click.argument(
@@ -21,8 +21,7 @@ import attachi.attachi
 @click.argument(
     'comment',
     required = True,
-    metavar = 'COMMENT',
-    help = 'she'
+    metavar = 'COMMENT'
 )
 @click.option(
     '-u', '--user',
@@ -30,13 +29,13 @@ import attachi.attachi
     metavar = 'ID'
 )
 @click.option(
-    '-o', '--output',
+    '-o', '--outdir',
     metavar = 'PATH',
     help = 'Output folder path'
 )
-def run(project_id, file_path, comment, user, output):
+def run(project_id, file_path, comment, user, outdir):
     """ Attachi - A helper tool that prepares attachments for openBIS registration"""
-    attachi = Attachi(project_id, file_path, comment, user, output)
+    attachi = Attachi(project_id, file_path, comment, user, outdir)
     attachi.run()
 
 if __name__ == '__main__':
