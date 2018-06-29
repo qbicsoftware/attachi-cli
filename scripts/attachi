@@ -4,8 +4,7 @@
 from __future__ import print_function
 
 import click
-
-from attachi.attachi import Attachi
+import attachi.attachi
 
 @click.command()
 @click.argument(
@@ -33,10 +32,11 @@ from attachi.attachi import Attachi
     metavar = 'PATH',
     help = 'Output folder path'
 )
+@click.version_option(attachi.__version__)
 def run(project_id, file_path, comment, user, outdir):
     """ Attachi - A helper tool that prepares attachments for openBIS registration"""
-    attachi = Attachi(project_id, file_path, comment, user, outdir)
-    attachi.run()
+    app = attachi.attachi.Attachi(project_id, file_path, comment, user, outdir)
+    app.run()
 
 if __name__ == '__main__':
     run()
