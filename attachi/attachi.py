@@ -39,7 +39,7 @@ class Attachi(object):
         PROJECT = self.code
         PATH = self.path
         COMMENT = self.comment
-        target = os.path.dirname(os.path.realpath(__file__)) if not self.outdir else self.outdir
+        target = os.getcwd() if not self.outdir else self.outdir
 
         logger.debug("Want to upload Attachment "+PATH+" ("+COMMENT+") to openBIS project "+PROJECT+" as user "+USER)
 
