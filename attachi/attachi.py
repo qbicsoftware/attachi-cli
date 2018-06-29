@@ -1,7 +1,6 @@
 import os
 import sys
 import logging
-import getpass
 import datetime
 import subprocess
 
@@ -35,7 +34,7 @@ class Attachi(object):
     def run(self):
         now = str(datetime.datetime.now())
 
-        USER = getpass.getuser()
+        USER = self.username
         PROJECT = self.code
         PATH = self.path
         COMMENT = self.comment
@@ -58,7 +57,6 @@ class Attachi(object):
         metadata = open(os.path.join(folder,"metadata.txt"),"w")
         if USER:
 	        metadata.write("user="+USER+"\n")
-        metadata.write("user="+USER+"\n")
         metadata.write("info="+COMMENT+"\n")
         metadata.write("barcode="+PROJECT+"000\n")
         metadata.write("type=Results\n")
