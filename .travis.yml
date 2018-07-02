@@ -11,7 +11,7 @@ install:
   - pip install pytest pytest-datafiles pytest-cov
  
 script:
-  - python -m pytest .
+  - attachi --version
 
 deploy:
   provider: pypi
