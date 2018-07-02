@@ -1,12 +1,17 @@
 language: python
-sudo: false
+sudo: required
 
 python:
   - '3.5'
   - '3.6'
-  
+
+install:
+  - cd ${TRAVIS_BUILD_DIR}
+  - pip install .
+  - pip install pytest pytest-datafiles pytest-cov
+ 
 script:
-  - pytest .
+  - python -m pytest .
 
 deploy:
   provider: pypi
