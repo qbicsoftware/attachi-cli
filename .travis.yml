@@ -6,7 +6,7 @@ python:
   - '3.6'
   
 script:
-  - nosetests
+  - nosetests .
 
 deploy:
   provider: pypi
@@ -14,4 +14,4 @@ deploy:
   password:
     secure: "iPfxlVsmJ6hgr/7GxWOX05+T9kIj01baTO3L3+Jq1S3NcbYbfnliFHpE0ExLqzMEZdmDWPlq60AfCV4+oYwVdRD/Og7EHFSDFRfsOA9BsCIqtrjLq7PaxkWFG7OFf3lPAs1MVdH25bPKnVOkCsbcEH6nXqw6NF/tHp3DdPQy1dB/VEdDkc1XGDbppq9jSywCg3LttuuPK6TrfEizgXQyryipmhNT2Nf+Tm18ElqD1QFJZbkDt8wBvluMZ4GUkxcJb4Qmj+7pQH/bikL4kj+l0akuo533+79AKeJL03jI+3ilTQWLqb1FWm9rE1pGeUzeZKBw5heBWmW/g1B8c/dYeJdYq9Vm10v3L6PXBq0nH63DnEv5E/srsKPFDgBWpxFL4DfwY/ATNZxbUvYvu9HJRxVK+LtgTpI5q1L4nCx3JS4Tbe7wx1jS2lOHUWaNKQKdDqsWRKSX3Qzm4XELFoDGSCacNEbbaMio/Ya5ha2hJSheWzkcxVWh3s8q4wirHSvWaI524Fm2ujQi7vy8pNnk0DVQ6iLB2/f/cXwgY0zfGNsRpDT157ClU1Dlx7qYr/vb8PQ5utRDRDv68z9wAs7VmCbelMTs+5v9jwj3g38Yok6m+UwkaFXOVH/4TdZGaLthdTAex8WMep3A4hg1TQuFuXJnEAIJfx/0VCEn0RGlxrc="
   on:
-tags: true
+    tags: true
