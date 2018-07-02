@@ -4,11 +4,11 @@ A small helper script, that creates the folder structure needed to register file
 
 ## Installation
 
-## Stable release from PyPi:
+### Stable release from PyPi:
 
 ``pip install attachi``
 
-## Current master branch:
+### Current master branch:
 
 ``pip install git+https://github.com/qbicsoftware/attachi-cli``
 
