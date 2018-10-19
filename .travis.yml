@@ -20,3 +20,7 @@ deploy:
     secure: "kF75cOafWinN9EYcsjG+Bl96qIbwKN7F8MmAChNvKemRZrFSzUZ18bLgKJXtEen4Jey5CQ090Tru3Mm5+NsJNUFHTwCZOyWQntblNgNAYAOZPDftiqv7VezneE2OxJCVvmuU4EFyrrqQ74zdgEz1gWH/JoZ81kPnPCuE//7K2/FyqeQgHojURyVsNzI/JfCjl6xprGtBcn0/sR+KezDaXmSRbBJj54XNd68XBvVTdCn2M5wHBejXU5zkaQ8tZ3bB28vIa9KKtq5PG1HaYCMepTR6d/InGjcYqetU5JThFGgWAVziXlaWc9dl40Txxo/Sz6wzwsR7vyGXTLxcq1ZlgSjESZNtbT8OxVQQUQUMoJJIr5sJooGCVvvD/32KLJMmxXOTsjO/bFCELTocAuiJ8Bo3Cbxo+Kxq2aRCVisYqH4A68K3HcyJdnIyu4oZo1obYu/sCASLE3myZDbYnR3INMwR3dzGJ5DYGSMFAYoFC+yNtnbtHsFMGxX6ifcL49iqY5QPfehQbRexaCQ9cZS+C2hgGRwwNivR/FFmMn8i0FyVeypg68OoMAd3VuuDzovcrsIPciqclbWWH74AeDTOWsPiVGWYQlxcPSp3DLh32unPxbG9Pxukc0qdDNeTooLKfNzPqcGAvbfjLcUprMF+u5pZLpo00dB5bWTvr6LWPng="
   on:
     tags: true
+    distributions: sdist bdist_wheel
+    repo: qbicsoftware/attachi-cli
+    python: '3.6'
+    
