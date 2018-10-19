@@ -1,6 +1,8 @@
 # Attachi
 [![Language](https://img.shields.io/github/languages/top/qbicsoftware/attachi-cli.svg)](https://img.shields.io/github/languages/top/qbicsoftware/attachi-cli.svg)
 [![Build Status](https://travis-ci.org/qbicsoftware/attachi-cli.svg?branch=master)](https://travis-ci.org/qbicsoftware/attachi-cli)
+[![Python 3.5](https://img.shields.io/badge/python-3.5-blue.svg)](https://www.python.org/downloads/release/python-350/)
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 
 
 A small helper script, that creates the folder structure needed to register files as attachment to openBIS.
