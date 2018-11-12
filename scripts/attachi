@@ -37,9 +37,9 @@ import attachi.attachi
     help = 'Output folder path'
 )
 @click.version_option(attachi.__version__)
-def run(project_id, file_path, comment, user, outdir):
+def run(project_id, file_path, comment, type, user, outdir):
     """ Attachi - A helper tool that prepares attachments for openBIS registration"""
-    app = attachi.attachi.Attachi(project_id, file_path, comment, user, outdir)
+    app = attachi.attachi.Attachi(project_id, file_path, comment, user, outdir, result=result)
     app.run()
 
 if __name__ == '__main__':
