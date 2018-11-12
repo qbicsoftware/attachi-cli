@@ -30,12 +30,12 @@ Usage: attachi [OPTIONS] PROJECTID FILE COMMENT
   Attachi - A helper tool that prepares attachments for openBIS registration
 
 Options:
+  -t, --atype TYPE   Type of attachment: Information or Results (default)
   -u, --user ID      Username shown in openbis as uploader
   -o, --outdir PATH  Output folder path
   --version          Show the version and exit.
   --help             Show this message and exit.
 
-```
 # Example
 
 Creating the folder structure for an upload:
