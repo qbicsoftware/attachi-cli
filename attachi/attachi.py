@@ -47,6 +47,10 @@ class Attachi(object):
         TYPE = self.atype
         target = os.getcwd() if not self.outdir else self.outdir
 
+        if TYPE.lower() != "results" && TYPE.lower() != "information":
+                logger.debug("Wrong type: "+TYPE)
+                sys.exit(TYPE+" is an unknown type. 'Results' or 'Information' are allowed.")
+
         logger.debug("Want to prepare Attachment "+PATH+" ("+COMMENT+") of type "+TYPE+" for project "+PROJECT+" as user "+USER)
 
         if os.path.isdir(PATH):
