@@ -42,7 +42,7 @@ class Attachi(object):
         TYPE = self.atype
         target = os.getcwd() if not self.outdir else self.outdir
 
-        if TYPE.lower() != "results" && TYPE.lower() != "information":
+        if TYPE.lower() not in ["information", "results"]:
                 logger.debug("Wrong type: "+TYPE)
                 sys.exit(TYPE+" is an unknown type. 'Results' or 'Information' are allowed.")
 
