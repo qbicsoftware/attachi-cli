@@ -20,27 +20,31 @@ import attachi.attachi
 @click.argument(
     'comment',
     required = True,
-    metavar = 'COMMENT'
+    metavar='COMMENT'
 )
 @click.option(
-    '-t', '--type',
+    '-t', '--atype',
     help = 'Type of attachment: Information or Results (default)',
-    metavar = 'TYPE'
+    metavar='TYPE',
+    default="Results"
 )
 @click.option(
     '-u', '--user',
-    help = 'Username shown in openbis as uploader',
-    metavar = 'ID'
+    help='Username shown in openbis as uploader',
+    metavar='ID',
+    default=""
 )
 @click.option(
     '-o', '--outdir',
-    metavar = 'PATH',
-    help = 'Output folder path'
+    metavar='PATH',
+    help='Output folder path',
+    default=""
 )
 @click.version_option(attachi.__version__)
-def run(project_id, file_path, comment, type, user, outdir):
+def run(project_id, file_path, comment, atype, user, outdir):
     """ Attachi - A helper tool that prepares attachments for openBIS registration"""
-    app = attachi.attachi.Attachi(project_id, file_path, comment, type, user, outdir)
+
+    app = attachi.attachi.Attachi(project_id, file_path, comment, atype, user, outdir)
     app.run()
 
 if __name__ == '__main__':

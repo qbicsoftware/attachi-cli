@@ -24,13 +24,18 @@ except Exception as e:
 
 class Attachi(object):
 
-    def __init__(self, qcode, fpath, comment, type = "Results", username = "", outdir = ""):
+    def __init__(self, qcode, fpath, comment, atype="Results", username="", outdir=""):
         self.code = qcode
         self.path = fpath
         self.comment = comment
         self.username = username
-        self.type = type
+        self.atype = atype
         self.outdir = outdir
+        print(qcode)
+        print(fpath)
+        print(comment)
+        print(atype)
+        print(username)
 
     def run(self):
         now = str(datetime.datetime.now())
@@ -39,7 +44,7 @@ class Attachi(object):
         PROJECT = self.code
         PATH = self.path
         COMMENT = self.comment
-        TYPE = self.type
+        TYPE = self.atype
         target = os.getcwd() if not self.outdir else self.outdir
 
         logger.debug("Want to prepare Attachment "+PATH+" ("+COMMENT+") of type "+TYPE+" for project "+PROJECT+" as user "+USER)
