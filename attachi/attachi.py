@@ -31,11 +31,6 @@ class Attachi(object):
         self.username = username
         self.atype = atype
         self.outdir = outdir
-        print(qcode)
-        print(fpath)
-        print(comment)
-        print(atype)
-        print(username)
 
     def run(self):
         now = str(datetime.datetime.now())
