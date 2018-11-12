@@ -23,6 +23,10 @@ import attachi.attachi
     metavar = 'COMMENT'
 )
 @click.option(
+    '-t', '--type',
+    help = 'Type of attachment: Information or Results (default)',
+    metavar = 'TYPE'
+@click.option(
     '-u', '--user',
     help = 'Username shown in openbis as uploader',
     metavar = 'ID'
