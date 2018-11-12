@@ -24,11 +24,12 @@ except Exception as e:
 
 class Attachi(object):
 
-    def __init__(self, qcode, fpath, comment, username = "", outdir = ""):
+    def __init__(self, qcode, fpath, comment, atype="Results", username="", outdir=""):
         self.code = qcode
         self.path = fpath
         self.comment = comment
         self.username = username
+        self.atype = atype
         self.outdir = outdir
 
     def run(self):
@@ -38,9 +39,14 @@ class Attachi(object):
         PROJECT = self.code
         PATH = self.path
         COMMENT = self.comment
+        TYPE = self.atype
         target = os.getcwd() if not self.outdir else self.outdir
 
-        logger.debug("Want to upload Attachment "+PATH+" ("+COMMENT+") to openBIS project "+PROJECT+" as user "+USER)
+        if TYPE.lower() not in ["information", "results"]:
+                logger.debug("Wrong type: "+TYPE)
+                sys.exit(TYPE+" is an unknown type. 'Results' or 'Information' are allowed.")
+
+        logger.debug("Want to prepare Attachment "+PATH+" ("+COMMENT+") of type "+TYPE+" for project "+PROJECT+" as user "+USER)
 
         if os.path.isdir(PATH):
             logger.debug(PATH+" is a directory. Quitting.")
@@ -59,12 +65,12 @@ class Attachi(object):
 	        metadata.write("user="+USER+"\n")
         metadata.write("info="+COMMENT+"\n")
         metadata.write("barcode="+PROJECT+"000\n")
-        metadata.write("type=Results\n")
+        metadata.write("type="+TYPE+"\n")
         metadata.close()
 
         logger.debug("Wrote metadata file to folder "+folder)
         cmd = "cp "+PATH+" "+os.path.join(folder,f)
-        logger.info("copying "+PATH+" to the dropbox...")
+        logger.info("copying "+PATH+" to attachment folder...")
         subprocess.call(cmd.split(" "))
         logger.debug("Copying of data file done. checking existence...")
         exists = os.path.isfile(os.path.join(folder,f))
