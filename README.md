@@ -50,5 +50,5 @@ attachi -u myusername QABCD README.md "this is a test for uploading the readme f
 Use tar and dync to upload the file to openBIS:
 
 ```bash
-tar -c QABCD000AQ_20180627102707758164 | dync -n QABCD000AQ_20180627102707758164.tar -k untar:True data.qbic.uni-tuebingen.de
+tar -c QABCD000AQ_20180627102707758164 | dync -n QABCD000AQ_20180627102707758164.tar -k passthrough:username -k untar:True data.qbic.uni-tuebingen.de
 ```
