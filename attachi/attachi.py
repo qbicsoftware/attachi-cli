@@ -45,7 +45,7 @@ class Attachi(object):
         if TYPE.lower() not in ["information", "results"]:
                 logger.debug("Wrong type: "+TYPE)
                 sys.exit(TYPE+" is an unknown type. 'Results' or 'Information' are allowed.")
-
+        COMMENT = sanitizeString(COMMENT)
         logger.debug("Want to prepare Attachment "+PATH+" ("+COMMENT+") of type "+TYPE+" for project "+PROJECT+" as user "+USER)
 
         if os.path.isdir(PATH):
@@ -77,6 +77,9 @@ class Attachi(object):
         logger.debug(str(exists))
         if not exists:
             logger.info("File could not be copied!")
+
+def sanitizeString(string):
+    return string.replace('\n', ' ').replace('\r', '')
 
 def now():
     return str(datetime.datetime.now())

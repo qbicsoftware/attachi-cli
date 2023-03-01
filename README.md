@@ -36,6 +36,8 @@ Options:
   --version          Show the version and exit.
   --help             Show this message and exit.
 
+While carriage return and new line symbols in the provided COMMENT are automatically replaced, it is good practice not to use them in the first place.
+
 # Example
 
 Creating the folder structure for an upload:
